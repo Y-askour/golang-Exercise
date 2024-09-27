@@ -31,6 +31,7 @@ func handleConnection(connection *net.Conn) {
 		}
 
 		message := string(buf[:len])
+		// encode and send the message to telegraf
 
 		fmt.Printf(message)
 	}
