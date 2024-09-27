@@ -5,8 +5,6 @@ import (
 	"net"
 )
 
-var count uint64 = 0
-
 func Listener() {
 	Listener, error := net.Listen("tcp", ":8080")
 	defer Listener.Close()
@@ -15,7 +13,6 @@ func Listener() {
 	}
 	for true {
 		connection, error := Listener.Accept()
-		count++
 		if error != nil {
 			fmt.Println("accepting a connection failed")
 		}
