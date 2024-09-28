@@ -1,0 +1,9 @@
+services:
+  server:
+    build: ./server/
+  client:
+    build: ./client/
+  telegraf:
+    build: ./telegraf/
+  rest_api:
+    build: ./REST_APi/
