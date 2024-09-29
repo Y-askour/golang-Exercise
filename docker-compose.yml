@@ -22,13 +22,13 @@ services:
     networks: 
       - internal-net
 
-  rest_api:
-    build: ./rest_api/
-    image: java_rest_api
-    networks: 
-      - internal-net
-    ports:
-      - "8080:8080"
+  # rest_api:
+  #   build: ./rest_api/
+  #   image: java_rest_api
+  #   networks: 
+  #     - internal-net
+  #   ports:
+  #     - "8080:8080"
 
 networks:
   internal-net:
