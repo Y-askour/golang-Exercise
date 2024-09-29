@@ -1,9 +1,35 @@
 services:
+
   server:
     build: ./server/
+    image: go_server
+    depends_on:
+      - client
+    networks: 
+      - internal-net
+
   client:
     build: ./client/
+    image: go_client
+    depends_on:
+      - telegraf
+    networks: 
+      - internal-net
+
   telegraf:
     build: ./telegraf/
+    image: telegraf
+    networks: 
+      - internal-net
+
   rest_api:
-    build: ./REST_APi/
+    build: ./rest_api/
+    image: java_rest_api
+    networks: 
+      - internal-net
+    ports:
+      - "8080:8080"
+
+networks:
+  internal-net:
+    driver: bridge

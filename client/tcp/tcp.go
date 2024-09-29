@@ -1,11 +1,17 @@
 package tcp
 
 import (
-	"fmt"
+	"encoding/json"
+	"log"
 	"net"
-	"strconv"
 	"time"
 )
+
+// my json struct
+type RandomMessage struct {
+	Name  string `json:"name"`
+	Count int    `json:"count"`
+}
 
 var count = 1
 
@@ -13,13 +19,13 @@ const HOST = "localhost"
 const PORT = "8080"
 
 // try connect goroutine  and then read from the channel of the message goroutine
-func connectAndSend(channel chan string) {
+func connectAndSend(channel chan []byte) {
 	message := <-channel
 
 	// connect to server
 	conn, err := net.Dial("tcp", HOST+":"+PORT)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalf("Dial")
 	}
 	defer conn.Close()
 
@@ -27,19 +33,25 @@ func connectAndSend(channel chan string) {
 	data := []byte(message)
 	_, err = conn.Write(data)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatalf("write")
 	}
 }
 
 func MainLoop() {
-	channel := make(chan string)
+	channel := make(chan []byte)
 	for {
 		go connectAndSend(channel)
 
-		// message goroutine -> create message
-		time.Sleep(time.Second)
-		channel <- "younes " + strconv.Itoa(count)
+		// message  goroutine -> create message and encode it
+		message_as_a_struct := RandomMessage{"younes", count}
+		message_as_a_binary, err := json.Marshal(message_as_a_struct)
+
+		if err != nil {
+			log.Fatalf("marshal")
+		}
+		channel <- message_as_a_binary
 		count++
+		time.Sleep(time.Second)
 		//
 	}
 }

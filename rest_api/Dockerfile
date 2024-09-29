@@ -1,1 +1,1 @@
-From openjdk:latest
+FROM openjdk:latest
