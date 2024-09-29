@@ -15,7 +15,7 @@ type RandomMessage struct {
 
 var count = 1
 
-const HOST = "localhost"
+const HOST = "server"
 const PORT = "8080"
 
 // try connect goroutine  and then read from the channel of the message goroutine

@@ -54,7 +54,7 @@ func handleConnection(connection *net.Conn) {
 		fmt.Println(message_as_struct.Name)
 
 		//send the message to telegraf
-		outgoingConn, error := net.Dial("tcp", "localhost:8094")
+		outgoingConn, error := net.Dial("tcp", "telegraf:8094")
 		defer outgoingConn.Close()
 		if error != nil {
 			log.Fatalf("dial")

@@ -4,15 +4,15 @@ services:
     build: ./server/
     image: go_server
     depends_on:
-      - client
+      - telegraf
     networks: 
       - internal-net
-
+  
   client:
     build: ./client/
     image: go_client
     depends_on:
-      - telegraf
+      - server
     networks: 
       - internal-net
 
